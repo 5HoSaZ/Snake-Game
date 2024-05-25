@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsncrefxs2u14"]
+
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_duk4v"]
+[ext_resource type="PackedScene" uid="uid://dnuedulm15p4p" path="res://Scenes/ball.tscn" id="2_grjft"]
+[ext_resource type="PackedScene" uid="uid://b68bbmfuvcgf1" path="res://Scenes/snake_head.tscn" id="3_cdydj"]
+[ext_resource type="PackedScene" uid="uid://b4klaia2k658m" path="res://Scenes/hud.tscn" id="4_euu04"]
+[ext_resource type="Texture2D" uid="uid://ctdrko60uu2pw" path="res://Assets/grid.png" id="4_gy2o6"]
+[ext_resource type="PackedScene" uid="uid://81bnvtaka7me" path="res://Scenes/snake_segment.tscn" id="5_6l5cc"]
+[ext_resource type="PackedScene" uid="uid://dpj83wuda3eo2" path="res://Scenes/apple.tscn" id="6_g4mao"]
+[ext_resource type="PackedScene" uid="uid://dsc6g0vvcvh3f" path="res://Scenes/game_over.tscn" id="7_dqf7j"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_duk4v")
+snake_scene = ExtResource("5_6l5cc")
+head_scene = ExtResource("3_cdydj")
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="HUD" parent="." instance=ExtResource("4_euu04")]
+
+[node name="Board" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(0, 16)
+texture = ExtResource("4_gy2o6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 320, 320)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
+[node name="Ball" parent="." instance=ExtResource("2_grjft")]
+visible = false
+position = Vector2(-128, 0)
+
+[node name="Apple" parent="." instance=ExtResource("6_g4mao")]
+
+[node name="GameOver" parent="." instance=ExtResource("7_dqf7j")]
+process_mode = 2
+visible = false
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="eaten" from="Apple" to="." method="_on_apple_eaten"]
+[connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]

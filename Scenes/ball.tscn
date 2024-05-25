@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnuedulm15p4p"]
+
+[ext_resource type="Script" path="res://Scripts/ball.gd" id="1_ctu7m"]
+[ext_resource type="Texture2D" uid="uid://crnp57iklkgi3" path="res://Assets/red_ball.png" id="2_575kt"]
+
+[node name="Ball" type="Sprite2D"]
+texture = ExtResource("2_575kt")
+script = ExtResource("1_ctu7m")
